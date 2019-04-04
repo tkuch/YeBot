@@ -31,12 +31,7 @@ import com.sun.glass.events.KeyEvent;
 import java.awt.event.KeyAdapter;
 @SuppressWarnings("serial")
 public class BDialog extends JDialog {
-	//
-	//    private JButton btnAnswer = new JButton("Talk");
-	//    private JButton btnExit = new JButton("Exit");
-	//    private JTextField txtTalk = new JTextField(60);
-	//    private JLabel txtResponse = new JLabel("This is a message");
-	//    private String result;
+
 	JFrame yeBot;
 	private String result;
 	private JTextField input;
@@ -78,7 +73,7 @@ public class BDialog extends JDialog {
 		yeBot.setResizable(false);
 		yeBot.setAlwaysOnTop(true);
 		yeBot.setTitle("yeBot");
-		yeBot.getContentPane().setBackground(Color.LIGHT_GRAY);
+		yeBot.getContentPane().setBackground(Color.GRAY);
 		//scroll view for our messages
 		scrollView = new JScrollPane();
 		//stop the user from scrolling up (scroll bar ugly don't need to)
@@ -94,8 +89,8 @@ public class BDialog extends JDialog {
 	    });
 		//sets info for send button
 		btnSend = new JButton("Send");
-		btnSend.setBackground(Color.GRAY);
-		btnSend.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 19));
+		btnSend.setBackground(Color.ORANGE);
+		btnSend.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 25));
 
 		//sets text input box (user input)
 		input = new JTextField();
@@ -116,7 +111,7 @@ public class BDialog extends JDialog {
 		
 
 		
-		input.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 19));
+		input.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
 		
 		groupLayout = new GroupLayout(yeBot.getContentPane());
 		groupLayout.setHorizontalGroup(
@@ -144,7 +139,7 @@ public class BDialog extends JDialog {
 		chatBox = new JTextArea();
 		chatBox.setWrapStyleWord(true);
 		chatBox.setBackground(Color.LIGHT_GRAY); 
-		chatBox.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 19));
+		chatBox.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
 		chatBox.setEditable(false);
 		scrollView.setViewportView(chatBox);
 
