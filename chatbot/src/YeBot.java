@@ -18,6 +18,18 @@ public class YeBot {
 		yebot.writeAIMLFiles();
 		String ans;
 		
+		//Initializes WordNet
+		//Note: WordNet is required to be installed in the correct directory as below. Link for download will be in README
+		System.setProperty("wordnet.database.dir", "C:\\Program Files (x86)\\WordNet\\2.1\\dict\\");
+		WordNetDatabase database = WordNetDatabase.getFileInstance();
+		//Array that contains Kanye's responses when a user enters something outside of his topics
+		ArrayList<String> unknown = new ArrayList<String>();
+		unknown.add("Wish I could help. I dont know what that means");
+		unknown.add("Help me understand what you're trying to say");
+		unknown.add("You got good vibes, but I dont know what to say to that");
+		unknown.add("Yo man you gotta slow down.. maybe try saying that a different way");
+		unknown.add("Not sure where you're going with that");
+
 		Chat session = new Chat(yebot);
 		conversation = new Conversation();
 
@@ -34,7 +46,7 @@ public class YeBot {
 				if(input==""||input==null||input.length()<1) {
 					//start conversation
 					
-					output = conversation.response("Ye is in the BUILDING!");
+					output = conversation.response("Ye is in the CHAT!");
 					i=0;	
 				}
 				else if(conversation.isContained(input)) {
@@ -52,6 +64,27 @@ public class YeBot {
 				else {
 					//regular response
 					String response = session.multisentenceRespond(input);
+					//WordNet - Synonym Recognition
+					if(unknown.contains(response)) {
+						String[] words = input.split(" ");
+						outerloop:
+						for(int n = 0; i<words.length;i++) {
+							Synset[] syns = database.getSynsets(words[n]);
+							if(syns.length!=0) {
+								for(Synset synonym : syns) {
+									String[] replace = synonym.getWordForms();
+									for(String r : replace) {
+										String newInput = input.replaceAll(words[n]+" ", r+" ");
+										response = session.multisentenceRespond(newInput);
+										if(!unknown.contains(response)) {
+											input = newInput;
+											break outerloop;
+										}
+									}
+								}
+							}
+						}
+					}					
 					output = conversation.response(response);
 				}
 			}	
