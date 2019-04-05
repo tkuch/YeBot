@@ -100,6 +100,7 @@ public class YeBot {
 										System.out.println(al.get(m));
 									}
 								}else {
+									//If there are no synonyms/antonyms
 									System.err.println("No synsets");
 								}
 							}

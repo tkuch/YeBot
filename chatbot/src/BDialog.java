@@ -73,7 +73,7 @@ public class BDialog extends JDialog {
 		yeBot.setResizable(false);
 		yeBot.setAlwaysOnTop(true);
 		yeBot.setTitle("yeBot");
-		yeBot.getContentPane().setBackground(Color.GRAY);
+		yeBot.getContentPane().setBackground(Color.GRAY); //Window
 		//scroll view for our messages
 		scrollView = new JScrollPane();
 		//stop the user from scrolling up (scroll bar ugly don't need to)
@@ -138,7 +138,7 @@ public class BDialog extends JDialog {
 		//the chatBox is where our chat occurs
 		chatBox = new JTextArea();
 		chatBox.setWrapStyleWord(true);
-		chatBox.setBackground(Color.LIGHT_GRAY); 
+		chatBox.setBackground(Color.LIGHT_GRAY); //Chat
 		chatBox.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
 		chatBox.setEditable(false);
 		scrollView.setViewportView(chatBox);
