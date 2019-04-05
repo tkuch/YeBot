@@ -39,7 +39,7 @@ An extra topic to sports was implemented. Originally, he only talked about baske
 Kanye has 5 responses for when an user says something out of his scope such as, "Wish I could help. I dont know what that means," "Help me understand what you're trying to say," "You got good vibes, but I dont know what to say to that," "Yo man you gotta slow down.. maybe try saying that a different way," and "Not sure where you're going with that."
 
 ** Language toolkit:**
-Synonym recognition was implemented with the use of WordNet.
+Synonym recognition was implemented with the use of WordNet and its libraries. Now when a user's response is unknown to Kanye's AIML knowledge, the user's input is split and saved into a string array, then searched in the WordNet database to find synonyms and antonyms and displayed. 
 
 ## References
 * Princeton University "About WordNet." WordNet. Princeton University. 2010. 

@@ -8,14 +8,17 @@ import java.util.ArrayList;
  */
 public class YeBot {
 
-	static Conversation conversation;			
+	static Conversation conversation;	
+	public Bot kanye;
+	public WordNetDatabase database;
+	public ArrayList<String> unknown;
 
 	public static void main(String[] args) {
 		String dir = new File(".").getAbsolutePath();
 		System.out.println(dir.substring(0,dir.length()-2));
 		MagicBooleans.trace_mode = false;
-		Bot yebot = new Bot("YeBot",dir.substring(0,dir.length()-2));
-		yebot.writeAIMLFiles();
+		Bot kanye = new Bot("YeBot",dir.substring(0,dir.length()-2));
+		kanye.writeAIMLFiles();
 		String ans;
 		
 		//Initializes WordNet
@@ -30,7 +33,7 @@ public class YeBot {
 		unknown.add("Yo man you gotta slow down.. maybe try saying that a different way");
 		unknown.add("Not sure where you're going with that");
 
-		Chat session = new Chat(yebot);
+		Chat session = new Chat(kanye);
 		conversation = new Conversation();
 
 		String input = "test";
@@ -64,34 +67,51 @@ public class YeBot {
 				else {
 					//regular response
 					String response = session.multisentenceRespond(input);
-					//WordNet - Synonym Recognition
+					//WordNet - Synonym Recognition	
 					if(unknown.contains(response)) {
 						String[] words = input.split(" ");
 						outerloop:
-						for(int n = 0; n<words.length;n++) {
-							Synset[] syns = database.getSynsets(words[n]);
-							if(syns.length!=0) {
-								for(Synset synonym : syns) {
-									String[] replace = synonym.getWordForms();
-									for(String r : replace) {
-										String newInput = input.replaceAll(words[n]+" ", r+" ");
-										response = session.multisentenceRespond(newInput);
-										if(!unknown.contains(response)) {
-											input = newInput;
-											break outerloop;
+							for(int n = 0; n<words.length; n++) {
+								Synset[] syns = database.getSynsets(words[n]);
+								if(syns.length > 0) {
+									ArrayList<String> al = new ArrayList<String>();
+									HashSet hs = new HashSet();
+									for(int j = 0; j < syns.length; j++) {
+										String[] wordForms = syns[j].getWordForms();
+										for(int k = 0; k < wordForms.length; k++) {
+											al.add(wordForms[k]);
+											for(String r : wordForms) {
+												String newInput = input.replaceAll(words[n]+" ", r+" ");
+												response = session.multisentenceRespond(newInput);
+												if(!unknown.contains(response)) {
+													input = newInput;
+													break outerloop;
+												}
+											}
 										}
 									}
+									//removes duplicates
+									hs.addAll(al);
+									al.clear();
+									al.addAll(hs);
+									
+									//display synsets
+									for(int m = 0; m < al.size(); m++) {
+										System.out.println(al.get(m));
+									}
+								}else {
+									System.err.println("No synsets");
 								}
 							}
-						}
-					}					
+					}
 					output = conversation.response(response);
+					//System.out.println(output);
 				}
 			}	
 		}
 		System.exit(1); 	//This statement terminates the program	
 		
 
-	}
 	
+	}
 }
