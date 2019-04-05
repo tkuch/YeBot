@@ -19,6 +19,9 @@ The Interactive Conversational Agent allows an individual to hold a conversation
 **Needed to be downloaded before use: **
 * WordNet - https://wordnet.princeton.edu/download/current-version
 
+**Make sure to add external archives in buildpath **
+* jaws-1.3.1.jar
+
 ## Built With
 
 * [Java](https://www.java.com/) - Programming language 

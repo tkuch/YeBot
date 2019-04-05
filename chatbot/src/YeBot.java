@@ -21,7 +21,7 @@ public class YeBot {
 		//Initializes WordNet
 		//Note: WordNet is required to be installed in the correct directory as below. Link for download will be in README
 		System.setProperty("wordnet.database.dir", "C:\\Program Files (x86)\\WordNet\\2.1\\dict\\");
-		WordNetDatabase database = WordNetDatabase.getFileInstance();
+		WordNetDatabase database = WordNetDatabase.getFileInstance(); //import WordNet database
 		//Array that contains Kanye's responses when a user enters something outside of his topics
 		ArrayList<String> unknown = new ArrayList<String>();
 		unknown.add("Wish I could help. I dont know what that means");
@@ -68,7 +68,7 @@ public class YeBot {
 					if(unknown.contains(response)) {
 						String[] words = input.split(" ");
 						outerloop:
-						for(int n = 0; i<words.length;i++) {
+						for(int n = 0; n<words.length;n++) {
 							Synset[] syns = database.getSynsets(words[n]);
 							if(syns.length!=0) {
 								for(Synset synonym : syns) {
